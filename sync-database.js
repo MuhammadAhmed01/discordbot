@@ -1,0 +1,17 @@
+// Import sequelize package
+const Sequelize = require('sequelize');
+
+// Create instance of Sequelize
+const sequelize = new Sequelize('discordbot', 'username', 'password', {
+    host: 'localhost',
+    dialect: 'sqlite',
+    logging: false,
+    storage: 'database.sqlite',
+});
+
+require('./models/tictactoe.js')(sequelize, Sequelize.DataTypes);
+
+sequelize.sync().then(async () => {
+    console.log('Database synced');
+    sequelize.close();
+}).catch(console.error);
